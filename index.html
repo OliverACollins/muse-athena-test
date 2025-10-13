@@ -8,8 +8,9 @@
     <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.1.0"></script>
     <script src="https://unpkg.com/@jspsych/plugin-preload@2.1.0"></script>
     <script src="https://unpkg.com/@jspsych/plugin-fullscreen@2.1.0"></script>
+    <script src="plugins/jspsych-psychophysics.js"></script>
     <link href="https://unpkg.com/jspsych@8.2.2/css/jspsych.css" rel="stylesheet" type="text/css" />
-
+  
     <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
   </head>
   <body></body>
@@ -21,7 +22,7 @@
       show_progress_bar: "true",
       message_progress_bar: "Progress"});
 
-
+    
     /* create timeline */
     var timeline = [];
     const subject_id = jsPsych.randomization.randomID(10);
@@ -115,15 +116,41 @@
     };
     timeline.push(instructions);
 
-    /* experiment trials below of stimuli loop */
+//stimuli marker
+var image_trials = [];
+for (var i = 0; i < 600; i++) {
+  // Marker trial
+  image_trials.push({
+    type: jsPsychPsychophysics,
+    stimuli: [
+      {
+        obj_type: 'rect',
+        startX: 0,
+        startY: 0,
+        width: 200,
+        height: 150,
+        fill_color: '#000000',
+        show_start_time: 0,
+        show_end_time: 100
+      }
+    ],
+    trial_duration: 100,
+    response_allowed_while_playing: false,
+    choices: "NO_KEYS"
+  });
 
-
-
-
-
-
-
-
+  // Image trial
+  var img = stimuli_images[i % stimuli_images.length];
+  image_trials.push({
+    type: jsPsychImageKeyboardResponse,
+    stimulus: img,
+    stimulus_height: 600,
+    main_aspect_ratio: true,
+    prompt: '<p>Press M for male and F for female',
+    choices: ['m', 'f']
+  });
+}
+timeline = timeline.concat(image_trials);
 
 /* start the experiment */
     jsPsych.run(timeline);
