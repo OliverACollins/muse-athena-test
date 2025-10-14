@@ -90,6 +90,30 @@
     }
     timeline.push(preload);
 
+    /* Here I was going to make the trigger marker dissapear when 'm' or 'f' are pressed 
+    so it would disappear when participants responded to stimuli, rather than flashing for 100ms which may be distracting.
+    But the whole screen goes grey instead of it actually just being a black rectangle in the corner, 
+    so I couldn't find a way to do this with the psPsychophysics plugin- if need be, could investigate how ReBel have
+    previously made the trigger marker react to keybaord responses e.g. PRIMALS 
+    const trigger_marker = {
+    type: jsPsychPsychophysics,
+    stimuli: [
+      {
+        obj_type: 'rect',
+        startX: 0,
+        startY: 0,
+        width: 200,
+        height: 150,
+        fill_color: '#000000',
+        show_start_time: 0
+      }
+    ],
+    trial_duration: 9999,
+    response_allowed_while_playing: false,
+    choices: ['m', 'f']
+  };
+  timeline.push(trigger_marker); */
+
 
     /* define welcome message trial */
     var welcome = {
@@ -120,31 +144,18 @@
     };
     timeline.push(instructions);
 
-var fixation = {
+  var fixation = {
   type: jsPsychHtmlKeyboardResponse,
   stimulus: '<div style="font-size:60px;">+</div>',
   choices: "NO_KEYS",
-  trial_duration: 1000,
-  on_start: () => sendMarker('fixation_onset') 
+  trial_duration: Math.floor(Math.random() * 2000) + 1000, // Random duration between 1000 and 3000 ms
 };
+timeline.push(fixation);
 
-var number_trial = {
-  type: jsPsychHtmlKeyboardResponse,
-  stimulus: function() {
-    let n = Math.floor(Math.random() * 9) + 1; // Random number between 1 and 9)
-    sendMarker("number_" + n);
-    return '<div style="font-size:60px;">${n}</div>';
-  },
-  choices: "NO_KEYS",
-  trial_duration: 1000
-};
 
-timeline.push(fixation, number_trial);
-
-//stimuli marker
 var image_trials = [];
 for (var i = 0; i < 600; i++) {
-  // Marker trial
+  //trigger marker on stimuli onset
   image_trials.push({
     type: jsPsychPsychophysics,
     stimuli: [
@@ -155,14 +166,13 @@ for (var i = 0; i < 600; i++) {
         width: 200,
         height: 150,
         fill_color: '#000000',
-        show_start_time: 0,
-        show_end_time: 100
+        show_start_time: 0
       }
     ],
     trial_duration: 100,
     response_allowed_while_playing: false,
-    choices: "NO_KEYS"
-  });
+    choices: ["NO_KEYS"]
+  }); 
 
   // Image trial
   var img = stimuli_images[i % stimuli_images.length];
@@ -170,10 +180,14 @@ for (var i = 0; i < 600; i++) {
     type: jsPsychImageKeyboardResponse,
     stimulus: img,
     stimulus_height: 600,
-    main_aspect_ratio: true,
+    maintain_aspect_ratio: true,
     prompt: '<p>Press M for male and F for female',
-    choices: ['m', 'f']
+    choices: ['m', 'f'],
+    on_start: () => sendMarker('stimuli_onset')
   });
+// Fixation trial
+  image_trials.push(fixation);
+;
 }
 timeline = timeline.concat(image_trials);
 
