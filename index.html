@@ -22,7 +22,11 @@
       show_progress_bar: "true",
       message_progress_bar: "Progress"});
 
-    
+    function sendMarker(value) {
+      fetch(`http://localhost:5000/marker?value=${encodeURIComponent(value)}`)
+      .catch(err => console.error("Marker send error:", err));
+    }
+
     /* create timeline */
     var timeline = [];
     const subject_id = jsPsych.randomization.randomID(10);
@@ -115,6 +119,27 @@
       post_trial_gap: 2000
     };
     timeline.push(instructions);
+
+var fixation = {
+  type: jsPsychHtmlKeyboardResponse,
+  stimulus: '<div style="font-size:60px;">+</div>',
+  choices: "NO_KEYS",
+  trial_duration: 1000,
+  on_start: () => sendMarker('fixation_onset') 
+};
+
+var number_trial = {
+  type: jsPsychHtmlKeyboardResponse,
+  stimulus: function() {
+    let n = Math.floor(Math.random() * 9) + 1; // Random number between 1 and 9)
+    sendMarker("number_" + n);
+    return '<div style="font-size:60px;">${n}</div>';
+  },
+  choices: "NO_KEYS",
+  trial_duration: 1000
+};
+
+timeline.push(fixation, number_trial);
 
 //stimuli marker
 var image_trials = [];
