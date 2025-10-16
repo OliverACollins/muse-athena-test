@@ -149,6 +149,7 @@
   stimulus: '<div style="font-size:60px;">+</div>',
   choices: "NO_KEYS",
   trial_duration: Math.floor(Math.random() * 2000) + 1000, // Random duration between 1000 and 3000 ms
+  on_start: () => sendMarker('fixation_onset')
 };
 timeline.push(fixation);
 
@@ -183,7 +184,7 @@ for (var i = 0; i < 600; i++) {
     maintain_aspect_ratio: true,
     prompt: '<p>Press M for male and F for female',
     choices: ['m', 'f'],
-    on_start: () => sendMarker('stimuli_onset')
+    //on_start: () => sendMarker('stimuli_onset')
   });
 // Fixation trial
   image_trials.push(fixation);

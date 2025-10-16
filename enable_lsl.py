@@ -1,11 +1,11 @@
 # enable_lsl.py
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
-from mne_lsl import StreamInfo, StreamOutlet
+from mne_lsl.lsl import StreamInfo, StreamOutlet, StreamInlet, resolve_streams
 import threading
 
 # Create an LSL outlet for markers
-info = StreamInfo(name="jsPsychMarkers", stype="Markers", n_channels=1, sfreq=0, dtype="string")
+info = StreamInfo(name="jsPsychMarkers", stype="Markers", n_channels=1, sfreq=0, dtype="string", source_id="11111")
 outlet = StreamOutlet(info)
 
 # Simple HTTP request handler
