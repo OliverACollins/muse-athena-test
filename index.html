@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Muse S Athena Test</title>
+    <script src="https://unpkg.com/jspsych@8.2.2"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-preload@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-fullscreen@2.1.0"></script>
+    <link href="https://unpkg.com/jspsych@8.2.2/css/jspsych.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
+  </head>
+  <body></body>
+  <script>
+
+    // initialize jsPsych
+    var jsPsych = initJsPsych(
+      {override_safe_mode: true,
+      show_progress_bar: "true",
+      message_progress_bar: "Progress"});
+
+        // jspsych send marker
+    function sendMarker(value) {
+  fetch(`http://localhost:5000/marker?value=${encodeURIComponent(value)}`)
+    .catch(err => console.error("Marker send error:", err));
+}
+
+
+    // create timeline
+    var timeline = [];
+    const subject_id = jsPsych.randomization.randomID(10);
+    const filename = `${subject_id}.csv`;
+            
+            
+    // enter fullscreen
+    var fullscreen_text = "<p>The experiment will switch to full screen mode when you press the button below</p>"
+    var fullscreen_button = "Continue"
+
+    var fullscreen_on = {
+    type: jsPsychFullscreen,
+    message: fullscreen_text,
+    button_label: fullscreen_button,
+    fullscreen_mode: true,
+    delay_after: 0,}
+
+    var fullscreen_off = {
+    type: jsPsychFullscreen,
+    message: fullscreen_text,
+    button_label: fullscreen_button,
+    fullscreen_mode: false,}
+
+    timeline.push(fullscreen_on);
+
+
+    // preload images //
+    // list of all images in the stimuli/ folder - stimuli from the Face Research Lab London Set
+    var stimuli_images = [
+      'stimuli/001_03.jpg', 'stimuli/002_03.jpg', 'stimuli/003_03.jpg', 'stimuli/004_03.jpg',
+      'stimuli/005_03.jpg', 'stimuli/006_03.jpg', 'stimuli/007_03.jpg', 'stimuli/008_03.jpg',
+      'stimuli/009_03.jpg', 'stimuli/010_03.jpg', 'stimuli/011_03.jpg', 'stimuli/012_03.jpg',
+      'stimuli/013_03.jpg', 'stimuli/014_03.jpg', 'stimuli/016_03.jpg', 'stimuli/017_03.jpg',
+      'stimuli/018_03.jpg', 'stimuli/019_03.jpg', 'stimuli/020_03.jpg', 'stimuli/021_03.jpg',
+      'stimuli/022_03.jpg', 'stimuli/024_03.jpg', 'stimuli/025_03.jpg', 'stimuli/026_03.jpg',
+      'stimuli/027_03.jpg', 'stimuli/029_03.jpg', 'stimuli/030_03.jpg', 'stimuli/031_03.jpg',
+      'stimuli/032_03.jpg', 'stimuli/033_03.jpg', 'stimuli/034_03.jpg', 'stimuli/036_03.jpg',
+      'stimuli/037_03.jpg', 'stimuli/038_03.jpg', 'stimuli/039_03.jpg', 'stimuli/041_03.jpg',
+      'stimuli/042_03.jpg', 'stimuli/043_03.jpg', 'stimuli/044_03.jpg', 'stimuli/045_03.jpg',
+      'stimuli/061_03.jpg', 'stimuli/062_03.jpg', 'stimuli/063_03.jpg', 'stimuli/064_03.jpg',
+      'stimuli/066_03.jpg', 'stimuli/067_03.jpg', 'stimuli/068_03.jpg', 'stimuli/069_03.jpg',
+      'stimuli/070_03.jpg', 'stimuli/081_03.jpg', 'stimuli/082_03.jpg', 'stimuli/083_03.jpg',
+      'stimuli/086_03.jpg', 'stimuli/087_03.jpg', 'stimuli/090_03.jpg', 'stimuli/091_03.jpg',
+      'stimuli/092_03.jpg', 'stimuli/094_03.jpg', 'stimuli/096_03.jpg', 'stimuli/097_03.jpg',
+      'stimuli/099_03.jpg', 'stimuli/100_03.jpg', 'stimuli/101_03.jpg', 'stimuli/102_03.jpg',
+      'stimuli/103_03.jpg', 'stimuli/104_03.jpg', 'stimuli/105_03.jpg', 'stimuli/107_03.jpg',
+      'stimuli/108_03.jpg', 'stimuli/112_03.jpg', 'stimuli/113_03.jpg', 'stimuli/114_03.jpg',
+      'stimuli/115_03.jpg', 'stimuli/117_03.jpg', 'stimuli/118_03.jpg', 'stimuli/119_03.jpg',
+      'stimuli/120_03.jpg', 'stimuli/121_03.jpg', 'stimuli/122_03.jpg', 'stimuli/123_03.jpg',
+      'stimuli/124_03.jpg', 'stimuli/125_03.jpg', 'stimuli/126_03.jpg', 'stimuli/127_03.jpg',
+      'stimuli/128_03.jpg', 'stimuli/129_03.jpg', 'stimuli/130_03.jpg', 'stimuli/131_03.jpg',
+      'stimuli/132_03.jpg', 'stimuli/134_03.jpg', 'stimuli/135_03.jpg', 'stimuli/136_03.jpg',
+      'stimuli/137_03.jpg', 'stimuli/138_03.jpg', 'stimuli/139_03.jpg', 'stimuli/140_03.jpg',
+      'stimuli/141_03.jpg', 'stimuli/142_03.jpg', 'stimuli/143_03.jpg', 'stimuli/144_03.jpg',
+      'stimuli/172_03.jpg', 'stimuli/173_03.jpg'
+    ];
+
+    var preload = {
+      type: jsPsychPreload,
+      images: stimuli_images
+    }
+    timeline.push(preload);
+
+
+    // define welcome message trial
+    var welcome = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: "Welcome to the experiment. Press any key to begin."
+    };
+    timeline.push(welcome);
+
+
+    // define instructions trial
+    var instructions = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `
+        <p>In this experiment, across a large number of trials, you will be presented with pictures of a person in the centre of the screen.</p>
+        <p>If you believe the person is <strong>Male</strong>, using your <i>right</i> index finger, press the letter <b>M</b> on the keyboard as fast as you can.</p>
+        <p>If you believe the person is <strong>Female</strong>, using your <i>left</i> index finger, press the letter <b>F</b> as fast as you can.</p>
+        <style>
+          .color-demo { width: 80px; height: 80px; border-radius: 50%; display: inline-block; }
+          .left { float: left; text-align: center; }
+          .right { float: right; text-align: center; }
+          .demo-container { width: 700px; overflow: auto; }
+        </style>
+        <p>Press any key to begin.</p>
+      `,
+      post_trial_gap: 2000
+    };
+    timeline.push(instructions);
+
+
+    // define trial stimuli array for timeline variables
+    var test_stimuli = [
+        { stimulus: "stimuli/001_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/002_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/003_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/004_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/005_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/006_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/007_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/008_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/009_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/010_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/011_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/012_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/013_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/014_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/016_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/017_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/018_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/019_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/020_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/021_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/022_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/024_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/025_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/026_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/027_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/029_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/030_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/031_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/032_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/033_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/034_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/036_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/037_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/038_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/039_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/041_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/042_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/043_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/044_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/045_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/061_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/062_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/063_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/064_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/066_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/067_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/068_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/069_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/070_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/081_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/082_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/083_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/086_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/087_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/090_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/091_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/092_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/094_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/096_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/097_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/099_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/100_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/101_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/102_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/103_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/104_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/105_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/107_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/108_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/112_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/113_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/114_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/115_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/117_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/118_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/119_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/120_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/121_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/122_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/123_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/124_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/125_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/126_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/127_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/128_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/129_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/130_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/131_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/132_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/134_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/135_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/136_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/137_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/138_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/139_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/140_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/141_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/142_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/143_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/144_03.jpg", correct_response: 'f'},
+        { stimulus: "stimuli/172_03.jpg", correct_response: 'm'},
+        { stimulus: "stimuli/173_03.jpg", correct_response: 'm'}
+    ];
+
+
+    // define fixation
+    var fixation = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: '<div style="font-size:60px;">+</div>',
+      choices: "NO_KEYS",
+      trial_duration: function(){
+        return jsPsych.randomization.sampleWithoutReplacement([1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000], 1)[0];
+      },
+      data: {
+        task: 'fixation'
+      },
+      //on_start: () => sendMarker('stimuli_onset')
+  }
+
+    // define test procedure
+
+    var repetitions = 6; // each stimulus appears 6 times
+    var repeated_stimuli = [];
+    for (var r = 0; r < repetitions; r++) {
+      repeated_stimuli = repeated_stimuli.concat(test_stimuli.slice());
+    }
+    var stimuli_order = jsPsych.randomization.shuffle(repeated_stimuli);
+    for (var i = 0; i < stimuli_order.length; i++) {
+      var stim = stimuli_order[i];
+
+      // push a fixation trial
+      timeline.push(Object.assign({}, fixation));
+
+      // create a test trial specific to this stimulus
+      var test_trial = {
+        type: jsPsychImageKeyboardResponse,
+        stimulus: stim.stimulus,
+        choices: ['m', 'f'],
+        stimulus_width: 750,
+        data: {
+          task: 'response',
+          correct_response: stim.correct_response
+        },
+        on_start: function(trial) {
+            // send a marker to the local marker server indicating which stimulus is shown
+          try { sendMarker(trial.stimulus); } catch(e) { console.warn('sendMarker failed', e); }
+          try {
+            var existing = document.getElementById('marker1');
+            if (existing) existing.parentNode.removeChild(existing);
+            var m = document.createElement('div');
+            m.id = 'marker1';
+            m.style.position = 'absolute';
+            m.style.left = '0px';
+            m.style.top = '0px';
+            m.style.width = '100px';
+            m.style.height = '100px';
+            m.style.backgroundColor = 'black';
+            m.style.zIndex = 9999;
+            document.body.appendChild(m);
+          } catch (e) {
+            console.warn('Could not create marker1 inline', e);
+          }
+
+          // remove marker immediately after pressing M/F
+          trial._photosensor_handler = function(e) {
+            var key = e.key ? e.key.toLowerCase() : '';
+            if (key === 'm' || key === 'f') {
+              var el = document.getElementById('marker1');
+              if (el) el.parentNode.removeChild(el);
+              window.removeEventListener('keydown', trial._photosensor_handler, true);
+            }
+          };
+          window.addEventListener('keydown', trial._photosensor_handler, true);
+        },
+        on_finish: function(data) {
+          data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+          var el = document.getElementById('marker1');
+          if (el) el.parentNode.removeChild(el);
+          if (this._photosensor_handler) {
+            window.removeEventListener('keydown', this._photosensor_handler, true);
+            delete this._photosensor_handler;
+          }
+        }
+      };
+      timeline.push(test_trial);
+    }
+
+
+    // continue button
+
+    var continue_button = {
+      type: jsPsychHtmlButtonResponse,
+      button_label: '<p>hello</p>'
+    }
+
+
+    // debriefing
+
+    var debrief_block = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: function() {
+
+    var trials = jsPsych.data.get().filter({task: 'response'});
+    var correct_trials = trials.filter({correct: true});
+    var accuracy = Math.round(correct_trials.count() / trials.count() * 100);
+    var rt = Math.round(correct_trials.select('rt').mean());
+
+    return `<p>You responded correctly on ${accuracy}% of the trials.</p>
+      <p>Your average response time was ${rt}ms.</p>`
+    },
+    button_label: fullscreen_button,
+    };
+    timeline.push(debrief_block);
+
+
+    // end screen
+    var end_screen = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `<p>The experiment has now finished. Thank you for participating!</p><p>Press any key to exit out of fullscreen mode</p>`,
+      fullscreen_mode: false
+    }
+
+
+// start the experiment
+    jsPsych.run(timeline);
+
+  </script>
+</html>
