@@ -22,10 +22,14 @@
       message_progress_bar: "Progress"});
 
         // jspsych send marker
-    function sendMarker(value) {
-  fetch(`http://localhost:5000/marker?value=${encodeURIComponent(value)}`)
-    .catch(err => console.error("Marker send error:", err));
-}
+    function sendMarker(value = 1) {
+      fetch(`http://localhost:5000/marker?value=${encodeURIComponent(value)}`)
+        .catch(err => console.error("Marker send error:", err));
+    }
+
+        // Example events
+        on_trial_start: () => sendMarker(1);
+        on_trial_finish: () =>  sendMarker(0);
 
 
     // create timeline
