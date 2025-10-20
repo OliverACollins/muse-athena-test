@@ -21,11 +21,33 @@
       show_progress_bar: "true",
       message_progress_bar: "Progress"});
 
-        // jspsych send marker
-    function sendMarker(value = 1) {
-      fetch(`http://localhost:5000/marker?value=${encodeURIComponent(value)}`)
+    // LSL BRIDGE =========================================================
+    let lslBaseTime = null;
+    
+    // Synchronise JS and LSL clocks once at start
+    async function syncLSL() {
+      const startPerf = performance.now();
+      const resp = await fetch("http://localhost:5000/sync");
+      const lslTime = parseFloat(await resp.text());
+      const endPerf = performance.now();
+    
+      // midpoint between request and response
+      const perfMid = (startPerf + endPerf) / 2;
+      lslBaseTime = lslTime - perfMid / 1000; // convert ms → s
+      console.log("LSL base time:", lslBaseTime);
+    }
+
+    // Send marker using JS timing
+    function sendMarker(value = "1") {
+      if (lslBaseTime === null) {
+        console.warn("LSL not synced yet!");
+        return;
+      }
+      const t = lslBaseTime + performance.now() / 1000;
+      fetch(`http://localhost:5000/marker?value=${encodeURIComponent(value)}&ts=${t}`)
         .catch(err => console.error("Marker send error:", err));
     }
+    // =======================================================================
 
 
     // create timeline
@@ -339,3 +361,4 @@
   </script>
 
 </html>
+
