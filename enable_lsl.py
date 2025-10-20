@@ -28,11 +28,11 @@ info = StreamInfo(
 
 # Add detailed channel description (optional but useful)
 """desc = info.desc()
-#desc.append_child_value("manufacturer", "jsPsych")
-#channels = desc.append_child("channels")
-#ch = channels.append_child("channel")
-#ch.append_child_value("label", "JsPsychMarker")
-#ch.append_child_value("unit", "string")"""
+desc.append_child_value("manufacturer", "jsPsych")
+channels = desc.append_child("channels")
+ch = channels.append_child("channel")
+ch.append_child_value("label", "JsPsychMarker")
+ch.append_child_value("unit", "string")"""
 
 outlet = StreamOutlet(info)
 # ---------------------------------------------------------------------
