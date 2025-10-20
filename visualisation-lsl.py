@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-data, header = pyxdf.load_xdf("sub-pilot_ses-S001_task-Muse_run-001_eeg.xdf") # replace file name in brackets with LabRecorder output file
+data, header = pyxdf.load_xdf("test-01.xdf")  # replace file name in brackets with LabRecorder output file
 
 for stream in data:
     y = stream['time_series']

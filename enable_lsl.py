@@ -2,6 +2,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 from mne_lsl.lsl import StreamInfo, StreamOutlet, local_clock
+print("StreamInfo is from:", StreamInfo)
 import threading
 import json
 
@@ -24,8 +25,16 @@ info = StreamInfo(
     dtype="string",
     source_id=LSL_SOURCE_ID,
 )
-outlet = StreamOutlet(info)
 
+# Add detailed channel description (optional but useful)
+"""desc = info.desc()
+#desc.append_child_value("manufacturer", "jsPsych")
+#channels = desc.append_child("channels")
+#ch = channels.append_child("channel")
+#ch.append_child_value("label", "JsPsychMarker")
+#ch.append_child_value("unit", "string")"""
+
+outlet = StreamOutlet(info)
 # ---------------------------------------------------------------------
 # HTTP Request Handler
 # ---------------------------------------------------------------------
@@ -41,8 +50,8 @@ class MarkerHandler(BaseHTTPRequestHandler):
             value = params.get("value", ["1"])[0]  # default marker = "1"
             ts = local_clock()
 
-            # Allow for richer JSON-style payloads if you ever need it
-            try:
+        # Allow for richer JSON-style payloads if you ever need it
+            """try:
                 value_str = json.dumps(json.loads(value))
             except json.JSONDecodeError:
                 value_str = str(value)
@@ -56,7 +65,7 @@ class MarkerHandler(BaseHTTPRequestHandler):
 
         else:
             self.send_response(404)
-            self.end_headers()
+            self.end_headers() """
 
 # ---------------------------------------------------------------------
 def run_server():
