@@ -30,8 +30,6 @@
 
     // create timeline
     var timeline = [];
-    const subject_id = jsPsych.randomization.randomID(10);
-    const filename = `${subject_id}.csv`;
             
             
     // enter fullscreen
@@ -258,15 +256,17 @@
       var test_trial = {
         type: jsPsychImageKeyboardResponse,
         stimulus: stim.stimulus,
-        choices: ['m', 'f'],
+        // no keyboard response required; auto-advance after fixed duration
+        choices: "NO_KEYS",
+        trial_duration: 2000,
         stimulus_width: 750,
         data: {
           task: 'response',
           correct_response: stim.correct_response
         },
         on_start: function(trial) {
-            // send a marker to the local marker server indicating which stimulus is shown
-          sendMarker(1)
+          // send a marker to the local marker server indicating which stimulus is shown
+          sendMarker(1);
           try {
             var existing = document.getElementById('marker1');
             if (existing) existing.parentNode.removeChild(existing);
@@ -283,27 +283,15 @@
           } catch (e) {
             console.warn('Could not create marker1 inline', e);
           }
-
-          // remove marker immediately after pressing M/F
-          trial._photosensor_handler = function(e) {
-            var key = e.key ? e.key.toLowerCase() : '';
-            if (key === 'm' || key === 'f') {
-              var el = document.getElementById('marker1');
-              if (el) el.parentNode.removeChild(el);
-              window.removeEventListener('keydown', trial._photosensor_handler, true);
-            }
-          };
-          window.addEventListener('keydown', trial._photosensor_handler, true);
         },
         on_finish: function(data) {
+          // clear photosensor marker and send marker off
           sendMarker(0);
-          data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
           var el = document.getElementById('marker1');
           if (el) el.parentNode.removeChild(el);
-          if (this._photosensor_handler) {
-            window.removeEventListener('keydown', this._photosensor_handler, true);
-            delete this._photosensor_handler;
-          }
+          // since there is no keyboard response, set response to null and correct false
+          data.response = null;
+          data.correct = false;
         }
       };
       timeline.push(test_trial);
