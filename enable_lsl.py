@@ -39,17 +39,32 @@ outlet = StreamOutlet(info)
 class MarkerHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         parsed = urlparse(self.path)
-        if parsed.path == "/marker":
-            params = parse_qs(parsed.query)
-            value = params.get("value", ["1"])[0]  # default marker = "1"
-            ts = local_clock()
+        params = parse_qs(parsed.query)
+        path = parsed.path
 
-            print(f"→ Marker {value} @ {ts:.6f}")
+        if path == "/sync":
+            # Return current LSL clock to JS
+            ts = local_clock()
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(str(ts).encode())
+
+        elif path == "/marker":
+            value = params.get("value", ["1"])[0]
+            ts_js = params.get("ts", [None])[0]
+
+            if ts_js is not None:
+                ts = float(ts_js)
+            else:
+                ts = local_clock()
+
             outlet.push_sample([value], ts)
+            print(f"→ Marker {value} @ {ts:.6f}")
 
             self.send_response(200)
             self.end_headers()
             self.wfile.write(b"OK")
+
         else:
             self.send_response(404)
             self.end_headers()
