@@ -2,9 +2,7 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 from mne_lsl.lsl import StreamInfo, StreamOutlet, local_clock
-print("StreamInfo is from:", StreamInfo)
 import threading
-import json
 
 # ---------------------------------------------------------------------
 # CONFIG
@@ -26,7 +24,6 @@ info = StreamInfo(
     source_id=LSL_SOURCE_ID,
 )
 
-# Add detailed channel description (optional but useful)
 desc = info.desc()
 desc.append_child_value("manufacturer", "jsPsych")
 channels = desc.append_child("channels")
@@ -41,32 +38,21 @@ outlet = StreamOutlet(info)
 # ---------------------------------------------------------------------
 class MarkerHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        """Accepts GET requests like:
-        http://localhost:5000/marker?value=stim_onset
-        or http://localhost:5000/marker?value=2
-        """
         parsed = urlparse(self.path)
         if parsed.path == "/marker":
             params = parse_qs(parsed.query)
             value = params.get("value", ["1"])[0]  # default marker = "1"
             ts = local_clock()
 
-        # Allow for richer JSON-style payloads if you ever need it
-            """try:
-                value_str = json.dumps(json.loads(value))
-            except json.JSONDecodeError:
-                value_str = str(value)
-
-            print(f"→ Marker {value_str} @ {ts:.6f}")
-            outlet.push_sample([value_str], ts)
+            print(f"→ Marker {value} @ {ts:.6f}")
+            outlet.push_sample([value], ts)
 
             self.send_response(200)
             self.end_headers()
             self.wfile.write(b"OK")
-
         else:
             self.send_response(404)
-            self.end_headers() """
+            self.end_headers()
 
 # ---------------------------------------------------------------------
 def run_server():
