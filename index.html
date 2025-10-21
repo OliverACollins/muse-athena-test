@@ -23,30 +23,32 @@
 
     // LSL BRIDGE =========================================================
     let lslBaseTime = null;
-    
-    // Synchronise JS and LSL clocks once at start
-    async function syncLSL() {
-      const startPerf = performance.now();
-      const resp = await fetch("http://localhost:5000/sync");
-      const lslTime = parseFloat(await resp.text());
-      const endPerf = performance.now();
-    
-      // midpoint between request and response
-      const perfMid = (startPerf + endPerf) / 2;
-      lslBaseTime = lslTime - perfMid / 1000; // convert ms → s
-      console.log("LSL base time:", lslBaseTime);
-    }
 
-    // Send marker using JS timing
+    async function syncLSL() {
+      try {
+        const startPerf = performance.now();
+        const resp = await fetch("http://localhost:5000/sync");
+        const lslTime = parseFloat(await resp.text());
+        const endPerf = performance.now();
+        const perfMid = (startPerf + endPerf) / 2;
+        lslBaseTime = lslTime - perfMid / 1000;
+        console.log("LSL sync done:", lslBaseTime);
+      } catch (e) {
+        console.error("LSL sync failed:", e);
+      }
+    }
+    
     function sendMarker(value = "1") {
       if (lslBaseTime === null) {
-        console.warn("LSL not synced yet!");
+        console.warn("LSL not synced yet");
         return;
       }
-      const t = lslBaseTime + performance.now() / 1000;
-      fetch(`http://localhost:5000/marker?value=${encodeURIComponent(value)}&ts=${t}`)
+      const ts = lslBaseTime + performance.now() / 1000;
+      fetch(`http://localhost:5000/marker?value=${encodeURIComponent(value)}&ts=${ts}`)
+        .then(() => console.log("sent marker", value))
         .catch(err => console.error("Marker send error:", err));
     }
+    await syncLSL();
     // =======================================================================
 
 
@@ -361,4 +363,5 @@
   </script>
 
 </html>
+
 
