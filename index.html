@@ -361,13 +361,12 @@
                     // closure to lock stimulus for callbacks
                     var test_trial = {
                         type: jsPsychImageKeyboardResponse,
-                        stimulus: local_stim.stimulus,
-                        choices: "NO_KEYS",
-                        trial_duration: 2000,
+                        stimulus: stim.stimulus,
+                        choices: ['m', 'f'],
                         stimulus_width: 750,
                         data: {
                             task: "response",
-                            correct_response: local_stim.correct_response,
+                            correct_response: stim.correct_response,
                         },
                         on_start: function (trial) {
                             var existing = document.getElementById("marker1")
