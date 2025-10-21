@@ -10,6 +10,13 @@ We will run two different machines:
 - The recording machine (used by the experimenter)
 - The experiment machine (used by the participant)
 
+#### Signal processing
+- BITalino board
+- Lux photosensor: tape to top-left-hand corner of the experiment machine's monitor
+- ECG: 3 electrodes - follow instructions printed out
+- Potentially EDA at a later point
+- Muse S Athena headband
+
 ### Setting up the BITalino
 - Connect Lux photosensor and ECG to the BITalino (ports A3 and Ax, respectively)
 - Turn BITalino on, and establish a Bluetooth connection with the recording machine. PIN is 1234
