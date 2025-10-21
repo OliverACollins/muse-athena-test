@@ -26,12 +26,16 @@ Testing the Muse S Athena in terms of ERPs and face processing.
 - Select/modify BITalino ports on OpenSignals accordingly (e.g., set port A3 as "LUX")
 - Start the data acquisiton (red "recording" button) to view signals, ensuring they are working as expected
 
+<br>
+
 ### Setting up the Muse Athena
 - Open GitHub repo folder (muse-athena-test/)
 - In the terminal, install the OpenMuse package (dev branch), uninstalling any previous versions (`pip uninstall OpenMuse`): `pip install https://github.com/DominiqueMakowski/OpenMuse/zipball/dev --upgrade`
 - After installing the package, in a new terminal, write: `OpenMuse find`
 - Following that, in a new terminal, stream the Muse data using: `OpenMuse stream --address <your-muse-address>`, pasting in the idiosyncratic MAC address as appropriate. Presets can also be set within this terminal (e.g., `--preset 4129`), with the default being preset 1041
 - You can now view the Muse LSL streams through typing `OpenMuse view` in a new terminal
+
+<br>
 
 ### Running the LSL Python bridge + index.html for the experiment
 - Ensure both machines are connected to the same WiFi network
@@ -51,6 +55,7 @@ Testing the Muse S Athena in terms of ERPs and face processing.
 - In a new terminal, run `python -m http.server 8000`
 - In the web browser, now find [http://localhost:8000/index.html] to open up the experiment Now, VScode will send our markers to the shared IPv4 address!
 
+<br>
 
 ### Setting up LabRecorder / recording the experiment
 - Ensure LabRecorder is downloaded on the recording machine
