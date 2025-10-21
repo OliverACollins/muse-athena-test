@@ -6,9 +6,9 @@ Testing the Muse S Athena in terms of ERPs and face processing.
 ## Step-by-step guide on testing the experiment with physiological signals
 
 ### Hardware
-We will run two different machines:
+#### Computers involved in the setup
 - The recording machine (used by the experimenter)
-- The experiment machine (used by the participant)
+- The experiment machine (used by the participant, with dual monitor setup)
 
 #### Signal processing
 - BITalino board
