@@ -1,5 +1,5 @@
 # Muse Athena Test
-Testing the Muse S Athena in terms of ERPs and face processing.
+Using a simple experiment, testing the Muse S Athena in terms of ERPs and face processing, as well as the synchrony between a photosensor and automated triggers in detecing trial markers for stimulus onset/cessation.
 
 [**Test the experiment**](https://oliveracollins.github.io/muse-athena-test/)
 
