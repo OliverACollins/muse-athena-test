@@ -10,7 +10,7 @@ import threading
 LSL_STREAM_NAME = "jsPsychMarkers"
 LSL_STREAM_TYPE = "Markers"
 LSL_SOURCE_ID = "jspsych-lsl-bridge"
-SERVER_HOST = "localhost"
+SERVER_HOST = "0.0.0.0"
 SERVER_PORT = 5000
 # ---------------------------------------------------------------------
 
