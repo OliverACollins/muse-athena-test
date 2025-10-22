@@ -46,6 +46,8 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 - Following that, in a new terminal, stream the Muse data using: `OpenMuse stream --address <your-muse-address>`, pasting in the idiosyncratic MAC address as appropriate. Presets can also be set within this terminal (e.g., `--preset 4129`), with the default being `--preset 1041`
 - You can now view the Muse LSL streams through typing `OpenMuse view` in a new terminal
 
+You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowski/OpenMuse](https://github.com/DominiqueMakowski/OpenMuse)
+
 <br>
 
 ### Running the LSL Python bridge + index.html for the experiment
