@@ -14,7 +14,6 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 - **BITalino board**
 - **LUX photosensor**: tape to top-left-hand corner of the experiment machine's monitor to detect trial markers
 - **ECG**: 3 electrodes - follow instructions printed out
-- Potentially **EDA** at a later point?
 - **Muse S Athena headband**
 
 <br>
