@@ -75,6 +75,8 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 - Once all streams have been set up, after pressing "Update", they ***should*** all appear on LabRecorder. Select ALL relevant streams for data acquisition
 - When all relevant streams are present, and that you have double-checked that such streams are recording as expected, begin the recording by pressing "Start"
 
+<br>
+
 ## Troubleshooting
 ### Muse Athena disconnecting
 - Ensure full/nearly full charge
