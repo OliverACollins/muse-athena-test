@@ -50,7 +50,7 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 
 #### The experiment machine
 - Now, on the experiment machine, open the GitHub repo folder in VScode (muse-athena-test/)
-- Locate the **three** instances of `localhost` in the lsl_bridge.py script, adapting them so that the web address corresponds to the IPv4 address of both machines (e.g., `fetch("**http://localhost:5000**/sync", ...)` -> `fetch("**http://173.032.2.382:5000**/sync", ...)`). It is **CRUCIAL** that you include the `:5000` port addres safter the IPv4 address
+- Locate the **three** instances of `localhost` in the lsl_bridge.py script, adapting them so that the web address corresponds to the IPv4 address of both machines (e.g., `fetch("http://localhost:5000/sync", ...)` -> `fetch("http://173.032.2.382:5000/sync", ...)`). It is **CRUCIAL** that you include the `:5000` port addres safter the IPv4 address
 - After, in a new terminal for index.html, ensure the working directory corresponds to the index script using `cd` (e.g., `cd "C:\Users\path\index.html"`)
 - In a new terminal, run `python -m http.server 8000`
 - In the web browser, now find [http://localhost:8000/index.html](http://localhost:8000/index.html) to open up the experiment. Now, VScode will send our markers to the shared IPv4 address!
