@@ -17,12 +17,13 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 - Potentially **EDA** at a later point?
 - **Muse S Athena headband**
 
+<br>
+
 ### Software
 - **VScode**: on both machines, with both Python and Jupyter extensions installed
 - **Python (ideally 3.12)**: on both machines
 - **OpenSignals**: on recording machine, created for the BITalino
 - **Lab Recorder (LSL)**: on recording machine
-
 
 <br>
 
