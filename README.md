@@ -7,15 +7,22 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 
 ### Hardware
 #### Computers involved in the setup
-- **The recording machine** (used by the experimenter)
-- **The experiment machine** (used by the participant, with dual-monitor setup)
+- **The recording machine** (used by the experimenter, with dual-monitor setup)
+- **The experiment machine** (used by the participant)
 
 #### Signal processing
 - **BITalino board**
-- **Lux photosensor**: tape to top-left-hand corner of the experiment machine's monitor
+- **Lux photosensor**: tape to top-left-hand corner of the experiment machine's monitor to detect trial markers
 - **ECG**: 3 electrodes - follow instructions printed out
 - Potentially **EDA** at a later point?
 - **Muse S Athena headband**
+
+### Software
+- **VScode**: on both machines, with both Python and Jupyter extensions installed
+- **Python (ideally 3.12)**: on both machines
+- **OpenSignals**: on recording machine, created for the BITalino
+- **Lab Recorder (LSL)**: on recording machine
+
 
 <br>
 
@@ -24,7 +31,10 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 - Turn BITalino on, and establish a Bluetooth connection with the recording machine. PIN is 1234
 - Connect to the BITalino through OpenSignals
 - Select/modify BITalino ports on OpenSignals accordingly (e.g., set port A3 as "LUX")
+- Navigate to the control panel, and over to the "Integration" tab, to ensure that OpenSignals streams to the Lab Streaming Layer (rather than merely to a separate file). Ensure that the data will be saved to the correct folder (e.g., /muse-athena-test/data/)
 - Start the data acquisiton (using the red "recording" button) to view signals, ensuring they are working as expected
+- Adjust the panels for each signal to the "Automatic" viewer
+- Stretch the panel at the bottom of the signals for better viewing
 
 <br>
 
