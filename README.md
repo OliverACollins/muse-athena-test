@@ -27,31 +27,8 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 
 <br>
 
-### Setting up the BITalino
-- Connect LUX photosensor and ECG to the BITalino (ports A3 and A2, respectively)
-- Turn BITalino on, and establish a Bluetooth connection with the recording machine. PIN is 1234
-- Connect to the BITalino through OpenSignals
-- Select/modify BITalino ports on OpenSignals accordingly (e.g., set port A3 as "LUX")
-- Navigate to the control panel, and over to the "Integration" tab, to ensure that OpenSignals streams to the Lab Streaming Layer (rather than merely to a separate file). Ensure that the data will be saved to the correct folder (e.g., /muse-athena-test/data/)
-- Start the data acquisiton (using the red "recording" button) to view signals, ensuring they are working as expected
-- Adjust the panels for each signal to the "Automatic" viewer
-- Stretch the panel at the bottom of the signals for better viewing
-
-<br>
-
-### Setting up the Muse Athena
-- Open GitHub repo folder (muse-athena-test/)
-- In the terminal, install the OpenMuse package (dev branch), uninstalling any previous versions (`pip uninstall OpenMuse`): `pip install https://github.com/DominiqueMakowski/OpenMuse/zipball/dev --upgrade`
-- After installing the package, in a new terminal, write: `OpenMuse find`
-- Following that, in a new terminal, stream the Muse data using: `OpenMuse stream --address <your-muse-address>`, pasting in the idiosyncratic MAC address as appropriate. Presets can also be set within this terminal (e.g., `--preset 4129`), with the default being `--preset 1041`
-- You can now view the Muse LSL streams through typing `OpenMuse view` in a new terminal
-
-You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowski/OpenMuse](https://github.com/DominiqueMakowski/OpenMuse)
-
-<br>
-
-### Running the LSL Python bridge + index.html for the experiment
-- Ensure both machines are connected to the same WiFi network
+### 1. Running the LSL Python bridge + index.html for the experiment
+- Ensure both machines are connected to the same WiFi network (for us, ideally to ethernet)
 
 #### The recording machine
 - In VScode, on the recording machine, in a new terminal, write `ipconfig` and locate the device's **IPv4 address**
@@ -70,7 +47,43 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 
 <br>
 
-### Setting up LabRecorder / recording the experiment
+### 2. Setting up the BITalino
+- Connect LUX photosensor and ECG to the BITalino (ports A3 and A2, respectively)
+- Turn BITalino on, and establish a Bluetooth connection with the recording machine. PIN is 1234
+- Connect to the BITalino through OpenSignals
+- Select/modify BITalino ports on OpenSignals accordingly (e.g., set port A3 as "LUX")
+- Navigate to the control panel, and over to the "Integration" tab, to ensure that OpenSignals streams to the Lab Streaming Layer (rather than merely to a separate file). Ensure that the data will be saved to the correct folder (e.g., /muse-athena-test/data/)
+- Start the data acquisiton (using the red "recording" button) to view signals, ensuring they are working as expected
+- Adjust the panels for each signal to the "Automatic" viewer
+- Stretch the panel at the bottom of the signals for better viewing
+
+<br>
+
+### 3. Setting up the Muse Athena
+- Open GitHub repo folder (muse-athena-test/)
+- In the terminal, install the OpenMuse package (dev branch), uninstalling any previous versions (`pip uninstall OpenMuse`): `pip install https://github.com/DominiqueMakowski/OpenMuse/zipball/dev --upgrade`
+- After installing the package, in a new terminal, write: `OpenMuse find`
+- Following that, in a new terminal, stream the Muse data using: `OpenMuse stream --address <your-muse-address>`, pasting in the idiosyncratic MAC address as appropriate. Presets can also be set within this terminal, with the default being `--preset 1041` (which does not require stating in the terminal). Whilst testing the Muse's signals, use `--preset p20` or `--preset p21` so as to reduce the impact on the battery through streaming fewer channels. Whilst recording the experiment, use the default preset
+- You can view the Muse LSL streams through typing `OpenMuse view` in a new terminal
+
+You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowski/OpenMuse](https://github.com/DominiqueMakowski/OpenMuse)
+
+<br>
+
+### 4. Setting up LabRecorder / recording the experiment
 - Ensure LabRecorder is downloaded on the recording machine
 - Once all streams have been set up, after pressing "Update", they ***should*** all appear on LabRecorder. Select ALL relevant streams for data acquisition
 - When all relevant streams are present, and that you have double-checked that such streams are recording as expected, begin the recording by pressing "Start"
+
+## Troubleshooting
+### Muse Athena disconnecting
+- Ensure full/nearly full charge
+
+### Noisy/absent EEG signals
+- Ensure Bluetooth connections are disabled on all task-irrelevant devices (e.g., nearby phones, headphones, laptops)
+- Ensure BITalino and Muse Athena are NOT charging when wanting to record data
+
+### Noisy ECG signals
+- Ensure the correct electrode is placed in each position (i.e., white electrode below right collar bone, black electrode below right rib bone, and red electrode below left rib bone)
+- The distance between the white and red electrodes should cross the heart
+- The gap between the white and black electrodes should run in a straight line down the torso
