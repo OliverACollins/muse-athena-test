@@ -51,7 +51,7 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 - Turn BITalino on, and establish a Bluetooth connection with the recording machine. PIN is 1234
 - Connect to the BITalino through OpenSignals
 - Select/modify BITalino ports on OpenSignals accordingly (e.g., set port A3 as "LUX")
-- Navigate to the control panel, and over to the "Integration" tab, to ensure that OpenSignals streams to the Lab Streaming Layer (rather than merely to a separate file). Ensure that the data will be saved to the correct folder (e.g., /muse-athena-test/data/)
+- Navigate to the Settings panel (located to the left of the shopping trolley icon at the bottom of the page), and then over to the "Integration" tab, to ensure that OpenSignals streams to the Lab Streaming Layer (rather than merely to a separate file). Ensure that the data will be saved to the correct folder (e.g., /muse-athena-test/data/)
 - Start the data acquisiton (using the red "recording" button) to view signals, ensuring they are working as expected
 - Adjust the panels for each signal to the "Automatic" viewer
 - Stretch the panel at the bottom of the signals for better viewing
@@ -78,7 +78,7 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 
 ## Troubleshooting
 ### Muse Athena disconnecting
-- Ensure full/nearly full charge
+- Ensure full/nearly full charge. Whilst the Muse is on charge, it can be worth regularly checking its charging progress (e.g., every 10 minutes). We have experienced issues of it not charging despite looking as though it is "on charge". You can check the battery level of the Athena in the OpenMuse package, through the `OpenMuse stream --address <your-muse-address>` command
 
 ### Noisy/absent EEG signals
 - Ensure Bluetooth connections are disabled on all task-irrelevant devices (e.g., nearby phones, headphones, laptops)
@@ -90,3 +90,8 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 - The distance between the white and red electrodes should cross the heart
 - The gap between the white and black electrodes should run in a straight line down the torso
 - Black and red electrodes should be parallel to each other
+
+### LabRecorder/general recording issues
+- If OpenSignals is not showing in Streams, make sure that the Lab Streaming Layer is turned on the "Integration" tab of the OpenSignals Settings panel
+- Muse Athena streams not updating: restart LabRecorder, and then they should appear. If they do not appear, check the OpenMuse terminals in VScode
+- If jsPsychMarkers are not coming through live in the VScode Python terminal, make sure to `cd` to the correct working directory of the GitHub repository (muse-athena-test)
