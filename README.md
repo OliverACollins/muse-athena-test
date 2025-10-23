@@ -13,10 +13,10 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 #### Signal processing
 - **BITalino board**
 - **LUX photosensor**: tape to top-left-hand corner of the experiment machine's monitor to detect trial markers
-- **ECG**: 3 electrodes - follow instructions on the print-out
-- **Respiration belt** - follow instructions on the print-out
-- **PPG sensor** - placed on fingertip (of index/middle finger)
-- **Muse S Athena headband**
+- **ECG**: 3 electrodes: follow instructions on the print-out
+- **Respiration belt**: follow instructions on the print-out
+- **PPG sensor**: placed on fingertip (of index/middle finger)
+- **Muse S Athena headband**: follow instructions on the print-out (need to print this out)
 
 <br>
 
