@@ -23,13 +23,13 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 ### Software
 - **VScode**: on both machines, with both Python and Jupyter extensions installed
 - **Python (ideally 3.12)**: on both machines
-- **OpenSignals**: on recording machine, created for the BITalino
-- **Lab Recorder (LSL)**: on recording machine
+- **OpenSignals**: on recording machine, allowing us to access the BITalino connections
+- **Lab Recorder (Lab Streaming Layer; LSL)**: on recording machine
 
 <br>
 
 ### 1. Running the LSL Python bridge + index.html for the experiment
-- Ensure both machines are connected to the same WiFi network (for us, ideally to ethernet)
+- Ensure both machines are connected to the same Wi-Fi network (for us, ideally to ethernet)
 
 #### The recording machine
 - In VScode, on the recording machine, in a new terminal, write `ipconfig` and locate the device's **IPv4 address**
@@ -50,6 +50,7 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 
 ### 2. Setting up the respiration belt, ECG, LUX photosensor, and PPG sensor
 #### Respiration belt
+- Works best when wearing a single, relatively thin layer of clothing (e.g., just a t-shirt without a jumper)
 - Follow instructions on the print-out
 - Should be worn just below the pectoral muscles (chest), with wire on the right-hand side of the participant's torso
 - Must be tight
@@ -95,24 +96,24 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 ### 5. Setting up LabRecorder / recording the experiment
 - Ensure LabRecorder is downloaded on the recording machine
 - Once all streams have been set up, after pressing "Update", they ***should*** all appear on LabRecorder. Select ALL relevant streams for data acquisition
-- When all relevant streams are present, and that you have double-checked that such streams are recording as expected, begin the recording by pressing "Start"
+- When all relevant streams are present, and that you have **double-checked** that such streams are recording as expected, begin the recording by pressing "Start"
 
 <br>
 
 ## Troubleshooting
 ### Noisy/absent LUX photosensor signals
-- Ensure it is taped facing the monitor
-
-### Noisy/absent EEG signals
-- Ensure Bluetooth connections are disabled on all task-irrelevant devices (e.g., nearby phones, headphones, laptops)
-- Ensure BITalino and Muse Athena are NOT charging when wanting to record data
-- Slightly dampen the skin under the electrodes 
+- Ensure it is taped with the photosensor ***facing*** the monitor
 
 ### Noisy ECG signals
 - Ensure the correct electrode is placed in each position (i.e., white electrode below right collar bone, black electrode below right rib bone, and red electrode below left rib bone)
 - The distance between the white and red electrodes should cross the heart
 - The gap between the white and black electrodes should run in a straight line down the torso
 - Black and red electrodes should be parallel to each other
+
+### Noisy/absent EEG signals
+- Ensure Bluetooth connections are disabled on all task-irrelevant devices (e.g., nearby phones, headphones, laptops)
+- Ensure BITalino and Muse Athena are NOT charging when wanting to record data
+- Slightly dampen the skin under the electrodes 
 
 ### LabRecorder/general recording issues
 - If OpenSignals is not showing in Streams, make sure that the Lab Streaming Layer is turned on the "Integration" tab of the OpenSignals Settings panel
