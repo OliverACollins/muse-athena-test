@@ -30,6 +30,7 @@ channels = desc.append_child("channels")
 ch = channels.append_child("channel")
 ch.append_child_value("label", "JsPsychMarker")
 ch.append_child_value("unit", "string")
+ch.append_child_value("type", "Marker")
 
 outlet = StreamOutlet(info)
 
