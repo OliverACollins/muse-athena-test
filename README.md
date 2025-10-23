@@ -12,11 +12,11 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 
 #### Signal processing
 - **BITalino board**
-- **LUX photosensor**: tape to top-left-hand corner of the experiment machine's monitor to detect trial markers
-- **ECG**: 3 electrodes: follow instructions on the print-out
-- **Respiration belt**: follow instructions on the print-out
-- **PPG sensor**: placed on fingertip (of index/middle finger)
-- **Muse S Athena headband**: follow instructions on the print-out (need to print this out)
+- **LUX photosensor**
+- **ECG**
+- **Respiration belt**
+- **PPG sensor**
+- **Muse S Athena headband**
 
 <br>
 
@@ -48,7 +48,27 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 
 <br>
 
-### 2. Setting up the BITalino
+### 2. Setting up the respiration belt, ECG, LUX photosensor, and PPG sensor
+#### Respiration belt
+- Follow instructions on print-out
+- Should be worn just below the pectoral muscles (chest), with wire on the right-hand side of the participant's torso
+- Must be tight
+
+#### ECG
+- Follow instructions on the print-out to correctly position the three electrodes
+- Use the big electrodes with a tiny bit of gel on the sponge material
+
+#### LUX photosensor
+- Taped ***robustly*** to the top left-hand corner of the experiment machine
+- MUST be located so that the photosensor can detect the stimulus marker
+- Ensure it is taped the correct way around - with the photosensor facing the computer monitor
+
+#### PPG sensor
+- Should be placed on the participant's fingertip (of index/middle finger - middle finger seems optimal for this experiment due to the index finger being most comfortable for keyboard responses)
+
+<br>
+
+### 3. Setting up the BITalino
 - Connect respiration belt (port A1), ECG (port A2), LUX photosensor (port A3), and PPG sensor (port A4) to the BITalino
 - Turn BITalino on, and establish a Bluetooth connection with the recording machine. PIN is 1234
 - Connect to the BITalino through OpenSignals
@@ -60,8 +80,9 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 
 <br>
 
-### 3. Setting up the Muse Athena
-- Open GitHub repo folder (muse-athena-test/)
+### 4. Setting up the Muse Athena
+- In order to properly fit the Muse, follow the information & instructions sheet printed out
+- When the Muse is on the participant's head, open the GitHub repo folder (muse-athena-test/)
 - In the terminal, install the OpenMuse package (dev branch), uninstalling any previous versions (`pip uninstall OpenMuse`): `pip install https://github.com/DominiqueMakowski/OpenMuse/zipball/dev --upgrade`
 - After installing the package, in a new terminal, write: `OpenMuse find`
 - Following that, in a new terminal, stream the Muse data using: `OpenMuse stream --address <your-muse-address>`, pasting in the idiosyncratic MAC address as appropriate. Presets can also be set within this terminal, with the default being `--preset 1041` (which does not require stating in the terminal). Whilst testing the Muse's signals, use `--preset p20` or `--preset p21` so as to reduce the impact on the battery through streaming fewer channels. Whilst recording the experiment, use the default preset
@@ -79,8 +100,8 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 <br>
 
 ## Troubleshooting
-### Muse Athena disconnecting
-- Ensure full/nearly full charge. Whilst the Muse is on charge, it can be worth regularly checking its charging progress (e.g., every 10 minutes). We have experienced issues of it not charging despite looking as though it is "on charge". You can check the battery level of the Athena in the OpenMuse package, through the `OpenMuse stream --address <your-muse-address>` command
+### Noisy/absent LUX photosensor signals
+- Ensure it is taped facing the monitor
 
 ### Noisy/absent EEG signals
 - Ensure Bluetooth connections are disabled on all task-irrelevant devices (e.g., nearby phones, headphones, laptops)
@@ -97,3 +118,6 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 - If OpenSignals is not showing in Streams, make sure that the Lab Streaming Layer is turned on the "Integration" tab of the OpenSignals Settings panel
 - Muse Athena streams not updating: restart LabRecorder, and then they should appear. If they do not appear, check the OpenMuse terminals in VScode
 - If jsPsychMarkers are not coming through live in the VScode Python terminal, make sure to `cd` to the correct working directory of the GitHub repository (muse-athena-test)
+
+### Muse Athena disconnecting
+- Ensure full/nearly full charge. Whilst the Muse is on charge, it can be worth regularly checking its charging progress (e.g., every 10 minutes). We have experienced issues of it not charging despite looking as though it is "on charge". You can check the battery level of the Athena in the OpenMuse package, through the `OpenMuse stream --address <your-muse-address>` command
