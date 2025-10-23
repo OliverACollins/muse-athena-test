@@ -50,7 +50,7 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 
 ### 2. Setting up the respiration belt, ECG, LUX photosensor, and PPG sensor
 #### Respiration belt
-- Follow instructions on print-out
+- Follow instructions on the print-out
 - Should be worn just below the pectoral muscles (chest), with wire on the right-hand side of the participant's torso
 - Must be tight
 
@@ -59,7 +59,7 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 - Use the big electrodes with a tiny bit of gel on the sponge material
 
 #### LUX photosensor
-- Taped ***robustly*** to the top left-hand corner of the experiment machine
+- Should be taped ***robustly*** to the top left-hand corner of the experiment machine
 - MUST be located so that the photosensor can detect the stimulus marker
 - Ensure it is taped the correct way around - with the photosensor facing the computer monitor
 
@@ -92,7 +92,7 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 
 <br>
 
-### 4. Setting up LabRecorder / recording the experiment
+### 5. Setting up LabRecorder / recording the experiment
 - Ensure LabRecorder is downloaded on the recording machine
 - Once all streams have been set up, after pressing "Update", they ***should*** all appear on LabRecorder. Select ALL relevant streams for data acquisition
 - When all relevant streams are present, and that you have double-checked that such streams are recording as expected, begin the recording by pressing "Start"
