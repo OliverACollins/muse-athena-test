@@ -13,7 +13,9 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 #### Signal processing
 - **BITalino board**
 - **LUX photosensor**: tape to top-left-hand corner of the experiment machine's monitor to detect trial markers
-- **ECG**: 3 electrodes - follow instructions printed out
+- **ECG**: 3 electrodes - follow instructions on the print-out
+- **Respiration belt** - follow instructions on the print-out
+- **PPG sensor** - placed on fingertip (of index/middle finger)
 - **Muse S Athena headband**
 
 <br>
@@ -47,7 +49,7 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 <br>
 
 ### 2. Setting up the BITalino
-- Connect LUX photosensor and ECG to the BITalino (ports A3 and A2, respectively)
+- Connect respiration belt (port A1), ECG (port A2), LUX photosensor (port A3), and PPG sensor (port A4) to the BITalino
 - Turn BITalino on, and establish a Bluetooth connection with the recording machine. PIN is 1234
 - Connect to the BITalino through OpenSignals
 - Select/modify BITalino ports on OpenSignals accordingly (e.g., set port A3 as "LUX")
