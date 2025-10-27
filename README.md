@@ -119,6 +119,8 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 
 (attach image)
 
+<br>
+
 ## Troubleshooting
 ### Noisy/absent LUX photosensor signals
 - Ensure it is taped with the photosensor ***facing*** the monitor
