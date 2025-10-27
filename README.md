@@ -66,6 +66,7 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 
 #### PPG sensor
 - Should be placed on the participant's fingertip (of index/middle finger - middle finger seems optimal for this experiment due to the index finger being most comfortable for keyboard responses)
+- 
 
 <br>
 
@@ -109,6 +110,17 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 - The distance between the white and red electrodes should cross the heart
 - The gap between the white and black electrodes should run in a straight line down the torso
 - Black and red electrodes should be parallel to each other
+
+### Signal cropping in PPG signals
+- Could be caused by the sensor being attached too tightly on the finger
+- Could be worth trying to attach the sensor lower down the finger
+
+<figure>
+  <img src="/images/ppg-bad.png" alt="Signal clipping in PPG signal"/>
+  <figcaption><i>Example of signal clipping in PPG signal.
+  </i>
+</figcaption>
+</figure>
 
 ### Noisy/absent EEG signals
 - Ensure Bluetooth connections are disabled on all task-irrelevant devices (e.g., nearby phones, headphones, laptops)
