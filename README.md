@@ -119,6 +119,10 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 
 (attach image)
 
+### Muse EEG
+
+(attach image)
+
 <br>
 
 ## Troubleshooting
