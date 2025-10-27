@@ -66,7 +66,8 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 
 #### PPG sensor
 - Should be placed on the participant's fingertip (of index/middle finger - middle finger seems optimal for this experiment due to the index finger being most comfortable for keyboard responses)
-- 
+- AVOID cold fingers as such vasoconstriction leads to a reduction in PPG signal amplitude
+- Contact of PPG sensor on the skin should be firm but not too tight
 
 <br>
 
@@ -111,13 +112,15 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 - The gap between the white and black electrodes should run in a straight line down the torso
 - Black and red electrodes should be parallel to each other
 
-### Signal cropping in PPG signals
+### Signal clipping in PPG signals
 - Could be caused by the sensor being attached too tightly on the finger
-- Could be worth trying to attach the sensor lower down the finger
+- Could be worth trying to attach the sensor lower down the finger (NOT at the fingertip, but perhaps between the distal and intermediate phalanges)
+- Try wrapping the chosen finger in a dark cloth (to reduce ambient light, thus hopefully reducing noise). Would be interesting to test this with the lights off in HPL and then with lights on to see if there is a difference in the clipping
+- AVOID motion of the hand of the finger in which the PPG sensor is attached to (paradigm now requires a same-hand response, rather than response from both hands)
 
 <figure>
   <img src="/images/ppg-bad.png" alt="Signal clipping in PPG signal"/>
-  <figcaption><i>Example of signal cropping in PPG signal, caused by high noise.
+  <figcaption><i>Example of signal clipping in PPG signal, caused by a distortion limiting the signal threshold.
   </i>
 </figcaption>
 </figure>
