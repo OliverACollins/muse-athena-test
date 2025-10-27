@@ -221,8 +221,8 @@
                 type: jsPsychHtmlKeyboardResponse,
                 stimulus: `
           <p>In this experiment, across a large number of trials, you will be presented with pictures of a person in the centre of the screen.</p>
-          <p>Using <b>only</b> your <b>right</b> hand, if you believe the person is <strong>Male</strong>, press the <b>LEFT ARROW</b> on the keyboard as fast as you can.</p>
-          <p>Using this same <b>right</b> hand, if you believe the person is <strong>Female</strong>, press the <b>RIGHT ARROW</b> as fast as you can.</p>
+          <p>Using <i>only</i> your <b>right</b> hand, if you believe the person is <b>Male</b>, press the <b>LEFT ARROW</b> on the keyboard as fast as you can.</p>
+          <p>Using this same <b>right</b> hand, if you believe the person is <b>Female</b>, press the <b>RIGHT ARROW</b> on the keyboard as fast as you can.</p>
           <p>Press any key to begin.</p>
         `,
                 post_trial_gap: 2000,
@@ -399,7 +399,7 @@
                 })(stim)
             }
 
-            // debrief block
+           /* // debrief block
             var debrief_block = {
                 type: jsPsychHtmlKeyboardResponse,
                 stimulus: function () {
@@ -412,7 +412,7 @@
                 },
                 button_label: fullscreen_button,
             }
-            timeline.push(debrief_block)
+            timeline.push(debrief_block) */
 
             // end screen
             var end_screen = {
