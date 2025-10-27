@@ -102,6 +102,23 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 
 <br>
 
+## Prototypical, clean physiologcial signals
+### Respiration belt
+
+(attach image)
+
+### ECG
+
+(attach image)
+
+### LUX photosensor
+
+(attach image)
+
+### PPG sensor
+
+(attach image)
+
 ## Troubleshooting
 ### Noisy/absent LUX photosensor signals
 - Ensure it is taped with the photosensor ***facing*** the monitor
