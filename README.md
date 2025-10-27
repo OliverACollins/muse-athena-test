@@ -117,7 +117,7 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 
 <figure>
   <img src="/images/ppg-bad.png" alt="Signal clipping in PPG signal"/>
-  <figcaption><i>Example of signal clipping in PPG signal.
+  <figcaption><i>Example of signal cropping in PPG signal, caused by high noise.
   </i>
 </figcaption>
 </figure>
