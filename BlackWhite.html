@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Screen Toggle</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      transition: background-color 0s ease;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    let toggle = false;
+    let count = 0;
+    const maxCount = 300; // 600 seconds (10 mins)) / 2 seconds = 300 toggles
+
+    const interval = setInterval(() => {
+      document.body.style.backgroundColor = toggle ? "white" : "black";
+      toggle = !toggle;
+      count++;
+      if (count >= maxCount) {
+        clearInterval(interval);
+      }
+    }, 2000 );
+  </script>
+</body>
+</html>
