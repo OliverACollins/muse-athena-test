@@ -16,16 +16,24 @@
   <script>
     let toggle = false;
     let count = 0;
-    const maxCount = 600; // 1200 seconds (20 mins)) / 2 seconds = 300 toggles
+    const maxCount = 1680; // 35 minutes = 2100 seconds, cycle time = 1.25s (750ms + 500ms)
 
-    const interval = setInterval(() => {
-      document.body.style.backgroundColor = toggle ? "white" : "black";
+    function toggleScreen() {
+      if (toggle) {
+        document.body.style.backgroundColor = "white";
+        setTimeout(toggleScreen, 750); // White screen duration
+      } else {
+        document.body.style.backgroundColor = "black";
+        setTimeout(toggleScreen, 500); // Black screen duration
+      }
       toggle = !toggle;
       count++;
       if (count >= maxCount) {
-        clearInterval(interval);
+        return; // Stop the alternation
       }
-    }, 2000 );
+    }
+
+    toggleScreen(); // Start the alternation
   </script>
 </body>
 </html>
