@@ -24,7 +24,7 @@ info = StreamInfo(
     source_id=LSL_SOURCE_ID,
 )
 
-desc = info.desc()
+desc = info.desc
 desc.append_child_value("manufacturer", "jsPsych")
 channels = desc.append_child("channels")
 ch = channels.append_child("channel")
