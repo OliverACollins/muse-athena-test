@@ -18,7 +18,6 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 - **PPG sensor**
 - **Muse S Athena headband**
 
-<br>
 
 ### Software
 - **VScode**: on both machines, with both Python and Jupyter extensions installed
@@ -26,7 +25,6 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 - **OpenSignals**: on recording machine, allowing us to access the BITalino connections
 - **Lab Recorder (Lab Streaming Layer; LSL)**: on recording machine
 
-<br>
 
 ### 1. Running the LSL Python bridge + index.html for the experiment
 - Ensure both machines are connected to the same Wi-Fi network (for us, ideally to ethernet)
@@ -41,12 +39,11 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 
 #### The experiment machine
 - Now, on the experiment machine, open the GitHub repo folder in VScode (muse-athena-test/)
-- Locate the **three** instances of `localhost` in the lsl_bridge.py script, adapting them so that the web address corresponds to the IPv4 address of both machines (e.g., `fetch("http://localhost:5000/sync", ...)` -> `fetch("http://173.032.2.382:5000/sync", ...)`). It is **CRUCIAL** that you include the `:5000` port address after the IPv4 address
+- Locate the **three** instances of `localhost` in the index.html script, adapting them so that the web address corresponds to the IPv4 address of both machines (e.g., `fetch("http://localhost:5000/sync", ...)` -> `fetch("http://173.032.2.382:5000/sync", ...)`). It is **CRUCIAL** that you include the `:5000` port address after the IPv4 address
 - After, in a new terminal for index.html, ensure the working directory corresponds to the index script using `cd` (e.g., `cd "C:\Users\path\index.html"`)
 - In a new terminal, run `python -m http.server 8000`
 - In the web browser, now find [http://localhost:8000/index.html](http://localhost:8000/index.html) to open up the experiment. Now, VScode will send our markers to the shared IPv4 address!
 
-<br>
 
 ### 2. Setting up the respiration belt, ECG, LUX photosensor, and PPG sensor
 #### Respiration belt
@@ -65,11 +62,11 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 - Ensure it is taped the correct way around - with the photosensor facing the computer monitor
 
 #### PPG sensor
-- Should be placed on the participant's fingertip (of index/middle finger - middle finger seems optimal for this experiment due to the index finger being most comfortable for keyboard responses)
+- On the left hand, the sensor should be placed more-or-less at the bottom of the participant's distal phalanx bone of the index/middle finger, with their hand resting **comfortably** on table and facing down (for better blood flow?)
+- Placing on fingertip seems to lead to signal clipping
 - AVOID cold fingers as such vasoconstriction leads to a reduction in PPG signal amplitude
 - Contact of PPG sensor on the skin should be firm but not too tight
 
-<br>
 
 ### 3. Setting up the BITalino
 - Connect respiration belt (port A1), ECG (port A2), LUX photosensor (port A3), and PPG sensor (port A4) to the BITalino
@@ -81,7 +78,6 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 - Adjust the panels for each signal to the "Automatic" viewer
 - Stretch the panel at the bottom of the signals for better viewing
 
-<br>
 
 ### 4. Setting up the Muse Athena
 - In order to properly fit the Muse, follow the information & instructions sheet printed out
@@ -93,14 +89,12 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 
 You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowski/OpenMuse](https://github.com/DominiqueMakowski/OpenMuse)
 
-<br>
 
 ### 5. Setting up LabRecorder / recording the experiment
 - Ensure LabRecorder is downloaded on the recording machine
 - Once all streams have been set up, after pressing "Update", they ***should*** all appear on LabRecorder. Select ALL relevant streams for data acquisition
 - When all relevant streams are present, and that you have **double-checked** that such streams are recording as expected, begin the recording by pressing "Start"
 
-<br>
 
 ## Prototypical, clean physiologcial signals
 ### Respiration belt
@@ -123,7 +117,6 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 
 (attach image)
 
-<br>
 
 ## Troubleshooting
 ### Noisy/absent LUX photosensor signals
@@ -158,5 +151,6 @@ You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowsk
 - Muse Athena streams not updating: restart LabRecorder, and then they should appear. If they do not appear, check the OpenMuse terminals in VScode
 - If jsPsychMarkers are not coming through live in the VScode Python terminal, make sure to `cd` to the correct working directory of the GitHub repository (muse-athena-test)
 
-### Muse Athena disconnecting
+### Muse Athena not connecting/disconnecting
+- Ensure that ALL Bluetooth devices other than the Muse and BITalino are switched off
 - Ensure full/nearly full charge. Whilst the Muse is on charge, it can be worth regularly checking its charging progress (e.g., every 10 minutes). We have experienced issues of it not charging despite looking as though it is "on charge". You can check the battery level of the Athena in the OpenMuse package, through the `OpenMuse stream --address <your-muse-address>` command
