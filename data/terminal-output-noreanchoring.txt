@@ -1,0 +1,91 @@
+PS C:\Users\olive\Documents\GitHub\muse-athena-test> OpenMuse stream --address 00:55:DA:B9:FA:20 --preset p1041 --record "C:\Users\olive\Documents\GitHub\muse-athena-test\data\test-test-test.txt"
+Recording raw data to: C:\Users\olive\Documents\GitHub\muse-athena-test\data\test-test-test.txt
+Connecting to 00:55:DA:B9:FA:20...
+Connected. Device: MuseS-FA20
+Subscribed to control notifications on 273e0001-4c4d-454d-96be-f03bac821358
+Subscribed to notifications on 273e0013-4c4d-454d-96be-f03bac821358
+Connected to device (firmware 3.1.11): battery 72.22%
+Sending preset 'p1041' and start commands ...
+
+--- DEBUG: UNSTABLE FIT DETECTED (EEG) ---
+    New Slope (b): 2.145927
+    New Intercept (a): 159356.148631
+    Input LSL Time (y): 159356.350
+    Input Device Time (x): 0.094
+    Last Device Time: 0.039
+    Time Diff (New - Last): 0.000s
+Warning: Unstable drift fit for EEG (b=2.1459). Resetting filter.
+
+--- DEBUG: UNSTABLE FIT DETECTED (ACCGYRO) ---
+    New Slope (b): 0.265842
+    New Intercept (a): 159356.334489
+    Input LSL Time (y): 159356.380
+    Input Device Time (x): 0.173
+    Last Device Time: 0.058
+    Time Diff (New - Last): 0.000s
+Warning: Unstable drift fit for ACCGYRO (b=0.2658). Resetting filter.
+
+--- DEBUG: UNSTABLE FIT DETECTED (EEG) ---
+    New Slope (b): 1.684112
+    New Intercept (a): 159356.038493
+    Input LSL Time (y): 159356.486
+    Input Device Time (x): 0.250
+    Last Device Time: 0.227
+    Time Diff (New - Last): 0.000s
+Warning: Unstable drift fit for EEG (b=1.6841). Resetting filter.
+
+--- DEBUG: UNSTABLE FIT DETECTED (OPTICS) ---
+    New Slope (b): 0.477749
+    New Intercept (a): 159356.441119
+    Input LSL Time (y): 159356.486
+    Input Device Time (x): 0.094
+    Last Device Time: 0.031
+    Time Diff (New - Last): 0.000s
+Warning: Unstable drift fit for OPTICS (b=0.4777). Resetting filter.
+
+--- DEBUG: UNSTABLE FIT DETECTED (ACCGYRO) ---
+    New Slope (b): 1.541982
+    New Intercept (a): 159356.041108
+    Input LSL Time (y): 159356.575
+    Input Device Time (x): 0.346
+    Last Device Time: 0.288
+    Time Diff (New - Last): 0.000s
+Warning: Unstable drift fit for ACCGYRO (b=1.5420). Resetting filter.
+
+--- DEBUG: UNSTABLE FIT DETECTED (EEG) ---
+    New Slope (b): 1.548260
+    New Intercept (a): 159356.016026
+    Input LSL Time (y): 159356.605
+    Input Device Time (x): 0.375
+    Last Device Time: 0.367
+    Time Diff (New - Last): 0.000s
+Warning: Unstable drift fit for EEG (b=1.5483). Resetting filter.
+
+--- DEBUG: UNSTABLE FIT DETECTED (OPTICS) ---
+    New Slope (b): 0.055207
+    New Intercept (a): 159356.594700
+    Input LSL Time (y): 159356.608
+    Input Device Time (x): 0.234
+    Last Device Time: 0.188
+    Time Diff (New - Last): 0.000s
+Warning: Unstable drift fit for OPTICS (b=0.0552). Resetting filter.
+Waiting for device info...
+Streaming data... (Press Ctrl+C to stop)
+
+--- DEBUG: UNSTABLE FIT DETECTED (OPTICS) ---
+    New Slope (b): 1.886765
+    New Intercept (a): 159356.077283
+    Input LSL Time (y): 159356.785
+    Input Device Time (x): 0.375
+    Last Device Time: 0.344
+    Time Diff (New - Last): 0.000s
+Warning: Unstable drift fit for OPTICS (b=1.8868). Resetting filter.
+
+--- DEBUG: UNSTABLE FIT DETECTED (OPTICS) ---
+    New Slope (b): 1.913163
+    New Intercept (a): 159355.888241
+    Input LSL Time (y): 159356.875
+    Input Device Time (x): 0.516
+    Last Device Time: 0.500
+    Time Diff (New - Last): 0.000s
+Warning: Unstable drift fit for OPTICS (b=1.9132). Resetting filter.
