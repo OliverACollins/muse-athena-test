@@ -11,7 +11,7 @@ import scipy.signal
 
 
 # --- Configuration ---
-filename = r"C:\Users\olive\Documents\GitHub\muse-athena-test\validation\test-25.xdf"
+filename = r"C:\Users\olive\Documents\GitHub\muse-athena-test\validation\test-26.xdf"
 dejitter_timestamps = ["OpenSignals"]
 # select_streams = [
 #     {"name": "Muse_ACCGYRO"},
@@ -72,8 +72,8 @@ print("Total experiment duration:", total_duration, "seconds")
 
 
 # --- Plot streams ---
-xmin = 71050
-fig = plt.figure(figsize=(20, 10))
+xmin = tmin
+fig = plt.figure(figsize=(18, 7))
 for i, s in enumerate(streams):
     name = s["info"].get("name", ["Unnamed"])[0]
     channels = [d["label"][0] for d in s["info"]["desc"][0]["channels"][0]["channel"]]
