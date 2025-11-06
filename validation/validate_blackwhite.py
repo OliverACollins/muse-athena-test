@@ -11,7 +11,7 @@ import scipy.signal
 
 
 # --- Configuration ---
-filename = "test-25.xdf"
+filename = r"C:\Users\olive\Documents\GitHub\muse-athena-test\validation\test-25.xdf"
 dejitter_timestamps = ["OpenSignals"]
 # select_streams = [
 #     {"name": "Muse_ACCGYRO"},
@@ -67,11 +67,13 @@ for i, stream in enumerate(streams):
         f"{i} - Stream {name}: {n_samples} samples, duration {duration:.2f} s (from {ts_min:.2f} to {ts_max:.2f}), nominal srate {nominal_srate:.2f} Hz, effective srate {effective_srate:.2f} Hz"
     )
 
+total_duration = tmax - tmin
+print("Total experiment duration:", total_duration, "seconds")
+
 
 # --- Plot streams ---
-xmin = tmin
-xmin = 164000
-fig = plt.figure(figsize=(15, 7))
+xmin = 71050
+fig = plt.figure(figsize=(20, 10))
 for i, s in enumerate(streams):
     name = s["info"].get("name", ["Unnamed"])[0]
     channels = [d["label"][0] for d in s["info"]["desc"][0]["channels"][0]["channel"]]
@@ -79,38 +81,53 @@ for i, s in enumerate(streams):
         lux = s["time_series"][:, channels.index("LUX0")]
         lux = (lux - np.min(lux)) / (np.max(lux) - np.min(lux))
         lux_ts = s["time_stamps"]
-        mask = (lux_ts >= xmin) & (lux_ts <= xmin + 10)
+        mask = (lux_ts >= xmin) & (lux_ts <= xmin + 100)
         plt.plot(lux_ts[mask], lux[mask], color="blue", label="LUX")
     if name in ["Muse_OPTICS"]:
         optics = s["time_series"][:, channels.index("OPTICS_RI_AMB")]
         optics = (optics - np.min(optics)) / (np.max(optics) - np.min(optics))
         optics_ts = s["time_stamps"]
-        mask = (optics_ts >= xmin) & (optics_ts <= xmin + 10)
+        mask = (optics_ts >= xmin) & (optics_ts <= xmin + 100)
         plt.plot(optics_ts[mask], optics[mask], color="red", label="OPTICS")
 plt.legend()
 plt.tight_layout()
 plt.show()
 
 
+import neurokit2 as nk
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- Event extraction ---
 events_lux = nk.events_find(lux, threshold_keep="below", duration_min=5)
-events_optics = nk.events_find(
-    optics, threshold=0.75, threshold_keep="above", duration_min=5
-)
-print(
-    f"N events LUX: {len(events_lux['onset'])}, N events OPTICS: {len(events_optics['onset'])}"
-)
+events_optics = nk.events_find(optics, threshold=0.75, threshold_keep="above", duration_min=5)
+
+print(f"N events LUX: {len(events_lux['onset'])}, N events OPTICS: {len(events_optics['onset'])}")
+
 onsets_lux = lux_ts[events_lux["onset"]]
 onsets_optics = optics_ts[events_optics["onset"]]
-# onsets_optics = nk.find_closest(onsets_lux, onsets_optics)
-diff = onsets_lux - onsets_optics
-np.median(diff)
 
+# --- Align OPTICS events to closest LUX events ---
+onsets_optics_aligned = nk.find_closest(onsets_lux, onsets_optics)
 
-# plt.plot((onsets_lux - min(onsets_lux)) / 60, diff)
-plt.plot(onsets_lux, diff)
-plt.title("LUX - OPTICS event onsets differences")
-plt.xlabel("Time")
-plt.ylabel("Difference (s) (LUX - OPTICS events onsets)")
+# --- Compute differences ---
+diff = onsets_lux - onsets_optics_aligned
+print("Median difference (s):", np.median(diff))
+
+# --- Filter differences to exclude values above 1 or below -1 ---
+mask = (diff >= -1) & (diff <= 1)
+filtered_onsets_lux = onsets_lux[mask]
+filtered_diff = diff[mask]
+
+# --- Plot filtered differences ---
+plt.figure(figsize=(10,10))
+plt.plot(filtered_onsets_lux, filtered_diff, marker='o', linestyle='None')
+plt.title("LUX - OPTICS event onset differences (filtered)")
+plt.xlabel("Time (s)")
+plt.ylabel("Difference (s)")
+plt.grid(True)
+plt.show()
+
 
 # _ = plt.hist(diff, alpha=0.5, bins=200)
 
