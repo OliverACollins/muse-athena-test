@@ -1,3 +1,4 @@
+import neurokit2 as nk
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -10,7 +11,7 @@ import scipy.signal
 
 
 # --- Configuration ---
-filename = "./test-21.xdf"
+filename = "test-25.xdf"
 dejitter_timestamps = ["OpenSignals"]
 # select_streams = [
 #     {"name": "Muse_ACCGYRO"},
