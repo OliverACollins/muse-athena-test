@@ -72,7 +72,7 @@ print("Total experiment duration:", total_duration, "seconds")
 
 
 # --- Plot streams ---
-xmin = tmin
+xmin = 81000
 fig = plt.figure(figsize=(18, 7))
 for i, s in enumerate(streams):
     name = s["info"].get("name", ["Unnamed"])[0]
@@ -81,13 +81,13 @@ for i, s in enumerate(streams):
         lux = s["time_series"][:, channels.index("LUX0")]
         lux = (lux - np.min(lux)) / (np.max(lux) - np.min(lux))
         lux_ts = s["time_stamps"]
-        mask = (lux_ts >= xmin) & (lux_ts <= xmin + 100)
+        mask = (lux_ts >= xmin) & (lux_ts <= xmin + 10)
         plt.plot(lux_ts[mask], lux[mask], color="blue", label="LUX")
     if name in ["Muse_OPTICS"]:
         optics = s["time_series"][:, channels.index("OPTICS_RI_AMB")]
         optics = (optics - np.min(optics)) / (np.max(optics) - np.min(optics))
         optics_ts = s["time_stamps"]
-        mask = (optics_ts >= xmin) & (optics_ts <= xmin + 100)
+        mask = (optics_ts >= xmin) & (optics_ts <= xmin + 10)
         plt.plot(optics_ts[mask], optics[mask], color="red", label="OPTICS")
 plt.legend()
 plt.tight_layout()
