@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Black/White Muse Synchronisation Test</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      transition: background-color 0s ease;
+    }
+  </style>
+</head>
+<body>
+  <script>
+
+    // Python LSL Bridge
+
+    var lslBaseTime = null
+
+        function syncLSL() {
+            return new Promise(async function (resolve, reject) {
+                try {
+                    let offsets = []
+                    for (let i = 0; i < 3; i++) {
+                        var startPerf = performance.now()
+                        let resp = await fetch("http://192.168.16.216:5000/sync", { cache: "no-store" })
+                        let text = await resp.text()
+                        var lslTime = parseFloat(text)
+                        var endPerf = performance.now()
+                        var perfMid = (startPerf + endPerf) / 2
+                        offsets.push(lslTime - perfMid / 1000)
+                        await new Promise((r) => setTimeout(r, 100)) // Short delay between syncs
+                    }
+                    lslBaseTime = offsets.reduce((a, b) => a + b, 0) / offsets.length
+                    console.log("LSL sync done (averaged):", lslBaseTime)
+                    resolve(lslBaseTime)
+                } catch (e) {
+                    console.error("LSL sync exception:", e)
+                    reject(e)
+                }
+            })
+        }
+
+        function sendMarker(value = "1") {
+            // If not synced, still send marker (server will timestamp with local_clock())
+            if (lslBaseTime === null) {
+                console.warn("LSL not synced yet - sending without JS timestamp")
+                fetch("http://192.168.16.216:5000/marker?value=" + encodeURIComponent(value))
+                    .then(function () {
+                        console.log("sent marker (no-ts)", value)
+                    })
+                    .catch(function (err) {
+                        console.error("Marker send error:", err)
+                    })
+                return
+            }
+
+            var ts = lslBaseTime + performance.now() / 1000
+            var url = "http://192.168.16.216:5000/marker?value=" + encodeURIComponent(value) + "&ts=" + encodeURIComponent(ts)
+            fetch(url)
+                .then(function () {
+                    console.log("sent marker", value, "ts", ts)
+                })
+                .catch(function (err) {
+                    console.error("Marker send error:", err)
+                })
+        }
+
+
+    let toggle = false;
+    let count = 0;
+    const maxCount = 1680; // 35 minutes = 2100 seconds, cycle time = 1.25s (750ms + 500ms)
+
+    function toggleScreen() {
+      if (toggle) {
+        document.body.style.backgroundColor = "white";
+        setTimeout(toggleScreen, 750); // White screen duration
+      } else {
+        document.body.style.backgroundColor = "black";
+        setTimeout(toggleScreen, 500); // Black screen duration
+      }
+      toggle = !toggle;
+      count++;
+      if (count >= maxCount) {
+        return; // Stop the alternation
+      }
+    }
+
+    toggleScreen(); // Start the alternation
+  </script>
+</body>
+</html>
