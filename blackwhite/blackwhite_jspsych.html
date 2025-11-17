@@ -126,5 +126,14 @@
     /* start the experiment */
     jsPsych.run(timeline);
 
+  syncLSL()
+      .then(function () {
+          startExperiment()
+      })
+      .catch(function (err) {
+          console.warn("Proceeding without LSL sync (sync failed):", err)
+          startExperiment()
+      })
+
   </script>
 </html>
