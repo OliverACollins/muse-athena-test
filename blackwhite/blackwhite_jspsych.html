@@ -87,17 +87,23 @@ function startExperiment() {
     ];
 
     /* trial */
-  var test = {
-      type: jsPsychImageKeyboardResponse,
-      stimulus: jsPsych.timelineVariable("stimulus"),
-      trial_duration: jsPsych.timelineVariable("duration"),
-      choices: "NO_KEYS",
-      on_start: function(trial) {
-          requestAnimationFrame(() => {
-              sendMarker(trial.marker);
-          });
-      }
-  };
+    var test = {
+        type: jsPsychImageKeyboardResponse,
+        stimulus: jsPsych.timelineVariable("stimulus"),
+        trial_duration: jsPsych.timelineVariable("duration"),
+        choices: "NO_KEYS",
+
+        data: {
+            marker: jsPsych.timelineVariable("marker")
+        },
+
+        on_start: function(trial) {
+            requestAnimationFrame(() => {
+                sendMarker(trial.data.marker);
+            });
+        }
+    };
+
 
   var loop_node = {
       timeline: [{
