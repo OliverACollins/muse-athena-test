@@ -1,24 +1,131 @@
-var test = {
-    type: jsPsychImageKeyboardResponse,
-    stimulus: jsPsych.timelineVariable("stimulus"),
-    trial_duration: jsPsych.timelineVariable("duration"),
-    choices: "NO_KEYS",
-    on_start: function(trial) {
-        requestAnimationFrame(() => {
-            sendMarker(trial.marker);
-        });
-    }
-};
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Black/White Muse Synchronisation Test</title>
 
-var loop_node = {
-    timeline: [{
-        timeline: [test],
-        timeline_variables: test_stimuli,
-        randomize_order: false
-    }],
-    loop_function: function() {
-        return jsPsych.getTotalTime() < 2100000;
-    }
-};
+    <!-- jsPsych v7.x (your original version) -->
+    <script src="https://unpkg.com/jspsych@7.3.4"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.1.3"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-preload@1.1.3"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-fullscreen@2.1.0"></script>
 
-timeline.push(loop_node);
+    <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" />
+</head>
+
+<body></body>
+
+<script>
+/* --------------------------
+   LSL bridge (corrected IP)
+--------------------------- */
+
+var lslBaseTime = null;
+
+function syncLSL() {
+    return new Promise(async function(resolve, reject) {
+        try {
+            let offsets = [];
+            for (let i = 0; i < 3; i++) {
+                var startPerf = performance.now();
+                let resp = await fetch("http://10.60.70.86:5000/sync", { cache: "no-store" });
+                let text = await resp.text();
+                var lslTime = parseFloat(text);
+                var endPerf = performance.now();
+                var perfMid = (startPerf + endPerf) / 2;
+                offsets.push(lslTime - perfMid / 1000);
+                await new Promise(r => setTimeout(r, 100));
+            }
+            lslBaseTime = offsets.reduce((a,b)=>a+b,0) / offsets.length;
+            console.log("LSL sync done:", lslBaseTime);
+            resolve(lslBaseTime);
+        }
+        catch (e) {
+            console.error("LSL sync failed:", e);
+            reject(e);
+        }
+    });
+}
+
+function sendMarker(value = "1") {
+    if (lslBaseTime === null) {
+        console.warn("No sync yet — sending without timestamp");
+        fetch("http://10.60.70.86:5000/marker?value=" + value);
+        return;
+    }
+
+    var ts = lslBaseTime + performance.now() / 1000;
+    var url = "http://10.60.70.86:5000/marker?value=" + value + "&ts=" + ts;
+
+    fetch(url)
+        .then(() => console.log("sent marker", value, ts))
+        .catch(err => console.error("marker error", err));
+}
+
+/* --------------------------
+   Experiment Definition
+--------------------------- */
+
+function startExperiment() {
+
+    var jsPsych = initJsPsych({
+        override_safe_mode: true
+    });
+
+    var timeline = [];
+
+    /* preload */
+    timeline.push({
+        type: jsPsychPreload,
+        images: ["white.png", "black.png"]
+    });
+
+    /* stimuli */
+    var test_stimuli = [
+        { stimulus: "white.png", duration: 750, marker: 1 },
+        { stimulus: "black.png", duration: 500, marker: 0 }
+    ];
+
+    /* trial */
+  var test = {
+      type: jsPsychImageKeyboardResponse,
+      stimulus: jsPsych.timelineVariable("stimulus"),
+      trial_duration: jsPsych.timelineVariable("duration"),
+      choices: "NO_KEYS",
+      on_start: function(trial) {
+          requestAnimationFrame(() => {
+              sendMarker(trial.marker);
+          });
+      }
+  };
+
+  var loop_node = {
+      timeline: [{
+          timeline: [test],
+          timeline_variables: test_stimuli,
+          randomize_order: false
+      }],
+      loop_function: function() {
+          return jsPsych.getTotalTime() < 2100000;
+      }
+  };
+
+  timeline.push(loop_node);
+
+
+    jsPsych.run(timeline);
+}
+
+/* --------------------------
+   Run: first sync, then start
+--------------------------- */
+
+syncLSL()
+    .then(() => startExperiment())
+    .catch(err => {
+        console.warn("Running without sync:", err);
+        startExperiment();
+    });
+
+</script>
+</html>
