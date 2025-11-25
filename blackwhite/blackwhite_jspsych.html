@@ -129,16 +129,17 @@ function startExperiment() {
     jsPsych.run(timeline);
 }
 
-/* --------------------------
-   Run: first sync, then start
---------------------------- */
-
+// -----------------------
+// Run: first sync then start experiment
+// -----------------------
 syncLSL()
-    .then(() => startExperiment())
-    .catch(err => {
-        console.warn("Running without sync:", err);
-        startExperiment();
-    });
+    .then(function () {
+        startExperiment()
+    })
+    .catch(function (err) {
+        console.warn("Proceeding without LSL sync (sync failed):", err)
+        startExperiment()
+    })
 
 </script>
 </html>
