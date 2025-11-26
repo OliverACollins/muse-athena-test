@@ -27,7 +27,7 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 
 
 ### 1. Running the LSL Python bridge + index.html for the experiment
-- Ensure both machines are connected to the same Wi-Fi network (for us, ideally to ethernet)
+- Ensure both machines are connected to the same network (for us, ideally to ethernet)
 
 #### The recording machine
 - In VScode, on the recording machine, in a new terminal, write `ipconfig` and locate the device's **IPv4 address**
@@ -35,7 +35,7 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 - In lsl_bridge.py, on line 13, ensure that the script says `SERVER_HOST = "0.0.0.0"`, allowing the server to locate all potential network connections (and not merely local networks)
 - Turn off the Windows firewall on the recording machine (Windows Security > Firewall and network protection > Public network)
 - Ensure mne-lsl is installed on the recording machine (`pip install mne-lsl`)
-- Select all code within this file, and press shift+enter to run the script
+- Select all code within this file (lsl_bridge.py), and press shift+enter to run the script
 
 #### The experiment machine
 - Now, on the experiment machine, open the GitHub repo folder in VScode (muse-athena-test/)
@@ -82,12 +82,12 @@ Using a simple experiment, testing the Muse S Athena in terms of ERPs and face p
 ### 4. Setting up the Muse Athena
 - In order to properly fit the Muse, follow the information & instructions sheet printed out
 - When the Muse is on the participant's head, open the GitHub repo folder (muse-athena-test/)
-- In the terminal, install the OpenMuse package (dev branch), uninstalling any previous versions (`pip uninstall OpenMuse`): `pip install https://github.com/DominiqueMakowski/OpenMuse/zipball/dev --upgrade`
+- In the terminal, install the OpenMuse package (dev branch), uninstalling any previous versions (`pip uninstall OpenMuse`): `pip install https://github.com/DominiqueMakowski/OpenMuse/zipball/dev`
 - After installing the package, in a new terminal, write: `OpenMuse find`
-- Following that, in a new terminal, stream the Muse data using: `OpenMuse stream --address <your-muse-address>`, pasting in the idiosyncratic MAC address as appropriate. Presets can also be set within this terminal, with the default being `--preset 1041` (which does not require stating in the terminal). Whilst testing the Muse's signals, use `--preset p20` or `--preset p21` so as to reduce the impact on the battery through streaming fewer channels. Whilst recording the experiment, use the default preset
+- Following that, in a new terminal, stream the Muse data using: `OpenMuse stream --address <your-muse-address>`, pasting in the idiosyncratic MAC address as appropriate. Presets can also be set within this terminal, with the default being `--preset p1041` (which does not require stating in the terminal). Whilst testing the Muse's signals, use `--preset p20` or `--preset p21` so as to reduce the impact on the battery through streaming fewer channels. Whilst recording the experiment, use the default preset
 - You can view the Muse LSL streams through typing `OpenMuse view` in a new terminal
 
-You can find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowski/OpenMuse](https://github.com/DominiqueMakowski/OpenMuse)
+Find the OpenMuse GitHub repo here: [https://github.com/DominiqueMakowski/OpenMuse](https://github.com/DominiqueMakowski/OpenMuse)
 
 
 ### 5. Setting up LabRecorder / recording the experiment
